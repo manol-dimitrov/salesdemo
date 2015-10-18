@@ -2,11 +2,10 @@ package org.sdl.salesdemo.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 import org.sdl.salesdemo.common.SalesDemoDBException;
 import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.HttpResponseCode;
@@ -52,7 +51,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Transactional(rollbackFor = SalesDemoException.class)
     public JSONOrder updateOrder( JSONOrder jsonOrder )throws SalesDemoException{
-        LOGGER.log(Level.INFO,"Start update order");
+        LOGGER.info("Start update order");
         Order order = calculateOrderTaxesAndTotals(jsonOrder); 
         JSONOrder jsonResult = new JSONOrder(order);
         return jsonResult;
@@ -72,11 +71,11 @@ public class OrderServiceImpl implements OrderService{
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public Order calculateOrderTaxesAndTotals(JSONOrder jsonOrder) throws SalesDemoException {
-        LOGGER.log(Level.INFO,"Start calculate order taxes and total order");
+        LOGGER.info("Start calculate order taxes and total order");
         //Check if not defined.  Return no data 
         if( jsonOrder == null) {
             String msg = "Order details not defined";
-            LOGGER.log(Level.SEVERE,msg);
+            LOGGER.error(msg);
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_INVALID_DATA);
         }
         
@@ -90,7 +89,7 @@ public class OrderServiceImpl implements OrderService{
                 order = orderDao.findById( jsonOrder.getOrderId());
                 if( order == null ){
                     String msg = "Order with Id Not found.  ID ->" + jsonOrder.getOrderId();
-                    LOGGER.log(Level.INFO,msg);
+                    LOGGER.info(msg);
                     //Throw exception and set HTTP Response to NOT Found
                     throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
                 }
@@ -111,12 +110,12 @@ public class OrderServiceImpl implements OrderService{
             throw e;
         }catch( SalesDemoDBException e){
             String msg = "Unexpected Database Exception updating or creating order "+ e.getMessage();
-            LOGGER.log(Level.INFO, msg, e);
+            LOGGER.error( msg, e);
             
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);    
         }catch( Exception e){
             String msg = "Unexpected exception occured while updating order";
-            LOGGER.log( Level.INFO, msg, e);
+            LOGGER.error( msg, e);
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
@@ -143,7 +142,7 @@ public class OrderServiceImpl implements OrderService{
                 Long productId = jsonItem.getProductId();
                 if( ( productId == null ) || (productId < 1) ){
                     String msg = "Item Product Id was not defined for order";
-                    LOGGER.log(Level.SEVERE, msg);
+                    LOGGER.error( msg);
                     throw new SalesDemoException(msg, HttpResponseCode.HTTP_INVALID_DATA);
                 }
 
@@ -152,7 +151,7 @@ public class OrderServiceImpl implements OrderService{
                 if( product == null ){
                     //Product basd on product Id not found
                     String msg = "Product basd on product Id not found "+ productId;
-                    LOGGER.log(Level.SEVERE, msg );
+                    LOGGER.error( msg );
             
                     throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
                 }
@@ -161,7 +160,7 @@ public class OrderServiceImpl implements OrderService{
                 if( usedProducts.contains( product )){
                     //Error.  Order has two line items from same product
                     String msg = "Order has two line items from same product "+ productId;
-                    LOGGER.log(Level.SEVERE, msg );
+                    LOGGER.error( msg );
             
                     throw new SalesDemoException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
                 }
@@ -178,7 +177,7 @@ public class OrderServiceImpl implements OrderService{
             
         }catch( SalesDemoDBException e){
             String msg = "Unexpected Database Exception updating order "+ e.getMessage();
-            LOGGER.log(Level.INFO, msg, e);
+            LOGGER.error( msg, e);
             
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
@@ -193,7 +192,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Transactional(rollbackFor = SalesDemoException.class)
     public List<JSONOrder> getOrders() throws SalesDemoException {
-        LOGGER.log(Level.INFO,"Getting a list of orders " );
+        LOGGER.info("Getting a list of orders " );
         try{
             List<Order> orders = orderDao.getTypes();
             
@@ -205,7 +204,7 @@ public class OrderServiceImpl implements OrderService{
             return jsonResult;
         }catch( SalesDemoDBException e){
             String msg = "Unexpected exception getting orders ";
-            LOGGER.log(Level.SEVERE,msg ,e);
+            LOGGER.info(msg ,e);
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
@@ -219,13 +218,13 @@ public class OrderServiceImpl implements OrderService{
     
     @Transactional(rollbackFor = SalesDemoException.class)
     public JSONOrder getOrder(long orderId) throws SalesDemoException {
-        LOGGER.log(Level.INFO,"Getting order for order id ->" + orderId);
+        LOGGER.info("Getting order for order id ->" + orderId);
         try{
             Order order = orderDao.findById( orderId );
             
             if( order == null ){
                 String msg = "Order with Id Not found.  ID ->" + orderId;
-                LOGGER.log(Level.INFO,msg);
+                LOGGER.info(msg);
                 //Throw exception and set HTTP Response to NOT Found
                 throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
             }
@@ -233,7 +232,7 @@ public class OrderServiceImpl implements OrderService{
             return jsonResult;
         }catch( SalesDemoDBException e){
             String msg = "Unexpected exception getting order -> "+ orderId;
-            LOGGER.log(Level.SEVERE,msg ,e);
+            LOGGER.info(msg ,e);
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }

@@ -2,8 +2,8 @@ package org.sdl.salesdemo.dao.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -36,16 +36,17 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      * @return E
      * @throws SalesDemoDBException
      */
-    public T findById(Long id) throws SalesDemoDBException {
+    @SuppressWarnings("unchecked")
+	public T findById(Long id) throws SalesDemoDBException {
 
         String msg = "Finding Entity by Id ->" + id;
-        LOGGER.log(Level.INFO, msg);
+        LOGGER.info( msg);
         try {
             return (T) sessionFactory.getCurrentSession().get(entityClass, id);
             
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while getting object->" + id + " Msg " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errMsg, e);
+            LOGGER.error( errMsg, e);
             throw new SalesDemoDBException(errMsg);
         }
     }
@@ -59,12 +60,12 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      */
     public T saveOrUpdate(T domain) throws SalesDemoDBException {
         String msg = "Save or Update Entity ->" + domain;
-        LOGGER.log(Level.INFO, msg);
+        LOGGER.info( msg);
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(domain);
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while save or update object->" + e.getMessage();
-            LOGGER.log(Level.SEVERE, errMsg, e);
+            LOGGER.info( errMsg, e);
             throw new SalesDemoDBException(errMsg);
         }
         return domain;
@@ -78,7 +79,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      */
     public List<T> getTypes() throws SalesDemoDBException {
         String msg = "Get all the types ->" + entityClass;
-        LOGGER.log(Level.INFO, msg);
+        LOGGER.info( msg);
         try {
             Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entityClass);
             
@@ -88,7 +89,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
             return results;
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while getting object types->" + e.getMessage();
-            LOGGER.log(Level.SEVERE, errMsg, e);
+            LOGGER.info( errMsg, e);
             throw new SalesDemoDBException(errMsg);
         }
     }

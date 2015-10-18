@@ -2,12 +2,11 @@ package org.sdl.salesdemo.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 import org.sdl.salesdemo.common.SalesDemoDBException;
 import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.*;
@@ -42,7 +41,7 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     public List<JSONProduct> getProducts() throws SalesDemoException{
         //TODO Implement Caching on this method
-        LOGGER.log(Level.INFO , "Getting products");
+        LOGGER.info("Getting products");
         try{
             List<Product> products =  productDao.getTypes();
             
@@ -54,7 +53,7 @@ public class ProductServiceImpl implements ProductService{
             return jsonResult;
         }catch(SalesDemoDBException e){
             String msg = "There was an unexpected exception while return a list of products ->" + e.getMessage();
-            LOGGER.log(Level.SEVERE,msg ,e);
+            LOGGER.error(msg ,e);
             throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }

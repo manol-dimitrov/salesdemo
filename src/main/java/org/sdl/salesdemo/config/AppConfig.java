@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -24,7 +23,6 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({"org.sdl.salesdemo.*"})
 @PropertySource("classpath:application.properties")
-@Import({ EHCacheConfiguration.class })
 @EnableTransactionManagement
 
 /**

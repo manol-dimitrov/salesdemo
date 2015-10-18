@@ -3,9 +3,8 @@ package org.sdl.salesdemo.services.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.log4j.Logger;
 import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.*;
 import org.sdl.salesdemo.domain.Item;
@@ -40,7 +39,7 @@ public class TaxProcessingServiceImpl implements TaxProcessingService{
      * @throws SalesDemoException 
      */
     public Order calculateOrderTotal( Order order )throws SalesDemoException{
-        LOGGER.log(Level.INFO,"Calcuating sales tax for order ->" + order);
+        LOGGER.info("Calcuating sales tax for order ->" + order);
         List<Item> items = order.getItems(); //Note. get items will return empty list if no items
         BigDecimal orderTotal= BigDecimal.ZERO;
         BigDecimal orderTax= BigDecimal.ZERO; 
@@ -50,14 +49,14 @@ public class TaxProcessingServiceImpl implements TaxProcessingService{
             //Ensure the item is defined
             if( item == null ){
                 String msg = "Line Item was null.  Unexpected ";
-                LOGGER.log( Level.SEVERE,msg);
+                LOGGER.info(msg);
                 throw new SalesDemoException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
             }
 
             //Ensure the product is defined
             if( item.getProduct() == null ){
                 String msg = "Product was not found.";
-                LOGGER.log( Level.SEVERE,msg);
+                LOGGER.info(msg);
                 throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
             }
             
@@ -93,7 +92,7 @@ public class TaxProcessingServiceImpl implements TaxProcessingService{
      * @return
      */
     public BigDecimal calculateRoundedTax( BigDecimal tax ){
-        LOGGER.log(Level.INFO,"Rounding price for item ->" + tax);
+        LOGGER.info("Rounding price for item ->" + tax);
 
         if( ( tax != null)&& (!BigDecimal.ZERO.equals(tax))){
             double t1 = tax.doubleValue();

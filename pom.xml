@@ -18,12 +18,13 @@
       <javax.servlet.version>3.1.0</javax.servlet.version>
       <log4j.version>1.2.16</log4j.version>
 	  <dbcp.version>1.4</dbcp.version>
-      <hibernate.ehcache.version>4.2.11.Final</hibernate.ehcache.version>
       <!-- Testing Components -->
       <junit.version>4.8.2</junit.version>
       <org.mockito.version>1.9.0</org.mockito.version>
       <dbunit.version>2.4.8</dbunit.version>
       <derby-tools>10.10.1.1</derby-tools>
+      <commons-logging-version>1.1.1</commons-logging-version>
+      <org-slf4j-version>1.7.5</org-slf4j-version>
   </properties>
 
   <dependencies>
@@ -55,6 +56,13 @@
         <groupId>commons-dbcp</groupId>
         <artifactId>commons-dbcp</artifactId>
         <version>${dbcp.version}</version>
+    </dependency>
+    
+    <!-- Hibernate ORM -->
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
     </dependency>
      
      <!-- Spring Dependencies -->
@@ -104,13 +112,6 @@
             <version>${spring.version}</version>
         </dependency>
         
-        <!--EHCache -->
-        <dependency>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-ehcache</artifactId>
-           <version>${hibernate.ehcache.version}</version>
-		</dependency>
-		
 		<!-- Derby in memory DB -->
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -151,6 +152,12 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <type>jar</type>
+            <exclusions>
+            	<exclusion>
+                	<groupId>commons-logging</groupId>
+                 	<artifactId>commons-logging</artifactId>
+             	</exclusion>
+         </exclusions>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
@@ -158,6 +165,18 @@
             <version>${dbunit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        	<groupId>commons-logging</groupId>
+        	<artifactId>commons-logging</artifactId>
+        	<version>${commons-logging-version}</version>
+        	<scope>test</scope>
+		</dependency>
+		<dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-log4j12</artifactId>
+        	<version>${org-slf4j-version}</version>
+        	<scope>test</scope>
+    	</dependency>
   </dependencies>
   <build>
     <finalName>salesdemo</finalName>
