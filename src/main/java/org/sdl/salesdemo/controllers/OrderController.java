@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.domain.json.JSONOrder;
 import org.sdl.salesdemo.domain.json.JSONProduct;
 import org.sdl.salesdemo.services.OrderService;
@@ -99,11 +99,11 @@ public class OrderController {
      * The following method will handle the REST requests to get a list of the 
      * products.  It will return the products a list of JSON data.  It
      * @return List<JSONProduct>
-     * @exception SalesTaxException
+     * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
     @RequestMapping(value = {"/rest/products"}, method = RequestMethod.GET)
-    public @ResponseBody List<JSONProduct> getProducts() throws SalesTaxException{
+    public @ResponseBody List<JSONProduct> getProducts() throws SalesDemoException{
         LOGGER.info("Start get products");
         List<JSONProduct> jsonResult = productService.getProducts();
 
@@ -114,11 +114,11 @@ public class OrderController {
      * The following method will handle the REST requests to get a list of the 
      * orders.  It will return the products a list of JSON data. 
      * @return List<JSONOrder>
-     * @exception SalesTaxException
+     * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
     @RequestMapping(value = {"/rest/orders"}, method = RequestMethod.GET)
-    public @ResponseBody List<JSONOrder> getOrders() throws SalesTaxException{
+    public @ResponseBody List<JSONOrder> getOrders() throws SalesDemoException{
         LOGGER.info("Start get products");
         List<JSONOrder> jsonResult = orderService.getOrders();
         return jsonResult;        
@@ -128,11 +128,11 @@ public class OrderController {
      * The following method will handle the REST requests to get a single
      * order.   
      * @return JSONOrder
-     * @exception SalesTaxException
+     * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
     @RequestMapping(value = {"/rest/orders/{orderId}"}, method = RequestMethod.GET)
-    public @ResponseBody JSONOrder getOrder(@PathVariable("orderId") Long orderId) throws SalesTaxException{
+    public @ResponseBody JSONOrder getOrder(@PathVariable("orderId") Long orderId) throws SalesDemoException{
         LOGGER.info("Start get order ->"+ orderId);
         JSONOrder jsonResult = orderService.getOrder(orderId);
 
@@ -145,10 +145,10 @@ public class OrderController {
      * order exists it will create it otherwise it will just update it.
      * @param jsonOrder
      * @return JSONOrder
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */    
     @RequestMapping(value = "/rest/orders/update", method = RequestMethod.POST)
-    public @ResponseBody JSONOrder updateOrder( @RequestBody JSONOrder jsonOrder ) throws SalesTaxException{
+    public @ResponseBody JSONOrder updateOrder( @RequestBody JSONOrder jsonOrder ) throws SalesDemoException{
         LOGGER.info("Start update order ");
         JSONOrder jsonResult = orderService.updateOrder(jsonOrder);
         
@@ -162,9 +162,9 @@ public class OrderController {
      * @param exception
      * @return
      */
-    @ExceptionHandler(SalesTaxException.class)
+    @ExceptionHandler(SalesDemoException.class)
     @ResponseBody
-    public String handleError(HttpServletRequest req, HttpServletResponse response, SalesTaxException exception) {
+    public String handleError(HttpServletRequest req, HttpServletResponse response, SalesDemoException exception) {
             LOGGER.log(Level.WARNING, "Request: " + req.getRequestURL() + " raised " + exception);
 
             String errorMsg = exception.getMessage();

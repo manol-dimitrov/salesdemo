@@ -2,7 +2,7 @@ package org.sdl.salesdemo.services;
 
 import java.util.List;
 
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.domain.json.JSONProduct;
 
 /**
@@ -12,5 +12,5 @@ import org.sdl.salesdemo.domain.json.JSONProduct;
  */
 public interface ProductService {
     
-    public List<JSONProduct> getProducts()throws SalesTaxException;
+    public List<JSONProduct> getProducts()throws SalesDemoException;
 }

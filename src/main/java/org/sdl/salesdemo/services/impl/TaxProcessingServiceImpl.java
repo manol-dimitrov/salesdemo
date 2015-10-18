@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.*;
 import org.sdl.salesdemo.domain.Item;
 import org.sdl.salesdemo.domain.Order;
@@ -37,9 +37,9 @@ public class TaxProcessingServiceImpl implements TaxProcessingService{
      * 4. It will calculate the totals for each item in the order
      * @param order
      * @return
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */
-    public Order calculateOrderTotal( Order order )throws SalesTaxException{
+    public Order calculateOrderTotal( Order order )throws SalesDemoException{
         LOGGER.log(Level.INFO,"Calcuating sales tax for order ->" + order);
         List<Item> items = order.getItems(); //Note. get items will return empty list if no items
         BigDecimal orderTotal= BigDecimal.ZERO;
@@ -51,14 +51,14 @@ public class TaxProcessingServiceImpl implements TaxProcessingService{
             if( item == null ){
                 String msg = "Line Item was null.  Unexpected ";
                 LOGGER.log( Level.SEVERE,msg);
-                throw new SalesTaxException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
+                throw new SalesDemoException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
             }
 
             //Ensure the product is defined
             if( item.getProduct() == null ){
                 String msg = "Product was not found.";
                 LOGGER.log( Level.SEVERE,msg);
-                throw new SalesTaxException(msg, HttpResponseCode.HTTP_NOT_FOUND);
+                throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
             }
             
             // Calcualte the taxes and determine the total

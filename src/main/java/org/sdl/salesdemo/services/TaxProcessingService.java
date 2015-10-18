@@ -4,7 +4,7 @@ package org.sdl.salesdemo.services;
 
 import java.math.BigDecimal;
 
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.domain.Item;
 import org.sdl.salesdemo.domain.Order;
 
@@ -16,7 +16,7 @@ import org.sdl.salesdemo.domain.Order;
  */
 public interface TaxProcessingService {
     
-    public Order calculateOrderTotal( Order order )throws SalesTaxException;
+    public Order calculateOrderTotal( Order order )throws SalesDemoException;
     
     public BigDecimal calculateRoundedTax( BigDecimal tax );
     

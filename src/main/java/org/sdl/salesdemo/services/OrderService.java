@@ -2,7 +2,7 @@ package org.sdl.salesdemo.services;
 
 import java.util.List;
 
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.domain.Order;
 import org.sdl.salesdemo.domain.json.JSONOrder;
 
@@ -13,11 +13,11 @@ import org.sdl.salesdemo.domain.json.JSONOrder;
  */
 public interface OrderService {
     
-    public JSONOrder updateOrder( JSONOrder order )throws SalesTaxException;
+    public JSONOrder updateOrder( JSONOrder order )throws SalesDemoException;
     
-    public Order calculateOrderTaxesAndTotals( JSONOrder order) throws SalesTaxException;
+    public Order calculateOrderTaxesAndTotals( JSONOrder order) throws SalesDemoException;
        
-    public List<JSONOrder> getOrders() throws SalesTaxException;
+    public List<JSONOrder> getOrders() throws SalesDemoException;
     
-    public JSONOrder getOrder( long orderId ) throws SalesTaxException;
+    public JSONOrder getOrder( long orderId ) throws SalesDemoException;
 }

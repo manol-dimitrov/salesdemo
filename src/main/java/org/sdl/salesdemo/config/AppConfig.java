@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({"org.sdl.salestax.*"})
+@ComponentScan({"org.sdl.salesdemo.*"})
 @PropertySource("classpath:application.properties")
 @Import({ EHCacheConfiguration.class })
 @EnableTransactionManagement
@@ -49,7 +49,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
         builder
-                .scanPackages("org.sdl.salestax.domain")
+                .scanPackages("org.sdl.salesdemo.domain")
                 .addProperties(getHibernateProperties());
 
         return builder.buildSessionFactory();

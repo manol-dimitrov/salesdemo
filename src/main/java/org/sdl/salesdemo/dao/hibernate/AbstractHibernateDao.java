@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.sdl.salesdemo.common.SalesTaxDBException;
+import org.sdl.salesdemo.common.SalesDemoDBException;
 import org.sdl.salesdemo.dao.AbstractDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,9 +34,9 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      *
      * @param id
      * @return E
-     * @throws SalesTaxDBException
+     * @throws SalesDemoDBException
      */
-    public T findById(Long id) throws SalesTaxDBException {
+    public T findById(Long id) throws SalesDemoDBException {
 
         String msg = "Finding Entity by Id ->" + id;
         LOGGER.log(Level.INFO, msg);
@@ -46,7 +46,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while getting object->" + id + " Msg " + e.getMessage();
             LOGGER.log(Level.SEVERE, errMsg, e);
-            throw new SalesTaxDBException(errMsg);
+            throw new SalesDemoDBException(errMsg);
         }
     }
 
@@ -55,9 +55,9 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      *
      * @param domain
      * @return
-     * @throws SalesTaxDBException
+     * @throws SalesDemoDBException
      */
-    public T saveOrUpdate(T domain) throws SalesTaxDBException {
+    public T saveOrUpdate(T domain) throws SalesDemoDBException {
         String msg = "Save or Update Entity ->" + domain;
         LOGGER.log(Level.INFO, msg);
         try {
@@ -65,7 +65,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while save or update object->" + e.getMessage();
             LOGGER.log(Level.SEVERE, errMsg, e);
-            throw new SalesTaxDBException(errMsg);
+            throw new SalesDemoDBException(errMsg);
         }
         return domain;
     }
@@ -74,9 +74,9 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
      * The following method will return a list of entities
      *
      * @return
-     * @throws SalesTaxDBException
+     * @throws SalesDemoDBException
      */
-    public List<T> getTypes() throws SalesTaxDBException {
+    public List<T> getTypes() throws SalesDemoDBException {
         String msg = "Get all the types ->" + entityClass;
         LOGGER.log(Level.INFO, msg);
         try {
@@ -89,7 +89,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
         } catch (HibernateException e) {
             String errMsg = "Unexpected Exception while getting object types->" + e.getMessage();
             LOGGER.log(Level.SEVERE, errMsg, e);
-            throw new SalesTaxDBException(errMsg);
+            throw new SalesDemoDBException(errMsg);
         }
     }
 

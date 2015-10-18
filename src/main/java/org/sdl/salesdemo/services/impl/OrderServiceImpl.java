@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.sdl.salesdemo.common.SalesTaxDBException;
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoDBException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.HttpResponseCode;
 import org.sdl.salesdemo.dao.AbstractDao;
 import org.sdl.salesdemo.domain.Item;
@@ -48,10 +48,10 @@ public class OrderServiceImpl implements OrderService{
      * and return a JSON Order to the client
      * @param jsonOrder
      * @return JSONOrder
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */
-    @Transactional(rollbackFor = SalesTaxException.class)
-    public JSONOrder updateOrder( JSONOrder jsonOrder )throws SalesTaxException{
+    @Transactional(rollbackFor = SalesDemoException.class)
+    public JSONOrder updateOrder( JSONOrder jsonOrder )throws SalesDemoException{
         LOGGER.log(Level.INFO,"Start update order");
         Order order = calculateOrderTaxesAndTotals(jsonOrder); 
         JSONOrder jsonResult = new JSONOrder(order);
@@ -68,16 +68,16 @@ public class OrderServiceImpl implements OrderService{
      * 4. It will save a copy in the database and return it
      * @param jsonOrder
      * @return Order
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public Order calculateOrderTaxesAndTotals(JSONOrder jsonOrder) throws SalesTaxException {
+    public Order calculateOrderTaxesAndTotals(JSONOrder jsonOrder) throws SalesDemoException {
         LOGGER.log(Level.INFO,"Start calculate order taxes and total order");
         //Check if not defined.  Return no data 
         if( jsonOrder == null) {
             String msg = "Order details not defined";
             LOGGER.log(Level.SEVERE,msg);
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_INVALID_DATA);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_INVALID_DATA);
         }
         
         //Check if create order
@@ -92,7 +92,7 @@ public class OrderServiceImpl implements OrderService{
                     String msg = "Order with Id Not found.  ID ->" + jsonOrder.getOrderId();
                     LOGGER.log(Level.INFO,msg);
                     //Throw exception and set HTTP Response to NOT Found
-                    throw new SalesTaxException(msg, HttpResponseCode.HTTP_NOT_FOUND);
+                    throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
                 }
             }
 
@@ -107,17 +107,17 @@ public class OrderServiceImpl implements OrderService{
 
             return order;
             
-        }catch( SalesTaxException e){
+        }catch( SalesDemoException e){
             throw e;
-        }catch( SalesTaxDBException e){
+        }catch( SalesDemoDBException e){
             String msg = "Unexpected Database Exception updating or creating order "+ e.getMessage();
             LOGGER.log(Level.INFO, msg, e);
             
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);    
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);    
         }catch( Exception e){
             String msg = "Unexpected exception occured while updating order";
             LOGGER.log( Level.INFO, msg, e);
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
     
@@ -127,9 +127,9 @@ public class OrderServiceImpl implements OrderService{
      * @param order
      * @param jsonOrder
      * @return 
-     * @exception SalesTaxException
+     * @exception SalesDemoException
      */
-    private Order updateOrderDetails( Order order, JSONOrder jsonOrder) throws SalesTaxException{
+    private Order updateOrderDetails( Order order, JSONOrder jsonOrder) throws SalesDemoException{
         
         List<JSONItem> jsonItems = jsonOrder.getOrderItems();
         List<Item> items = new ArrayList<Item>();
@@ -144,7 +144,7 @@ public class OrderServiceImpl implements OrderService{
                 if( ( productId == null ) || (productId < 1) ){
                     String msg = "Item Product Id was not defined for order";
                     LOGGER.log(Level.SEVERE, msg);
-                    throw new SalesTaxException(msg, HttpResponseCode.HTTP_INVALID_DATA);
+                    throw new SalesDemoException(msg, HttpResponseCode.HTTP_INVALID_DATA);
                 }
 
                 Product product = productDao.findById(productId);
@@ -154,7 +154,7 @@ public class OrderServiceImpl implements OrderService{
                     String msg = "Product basd on product Id not found "+ productId;
                     LOGGER.log(Level.SEVERE, msg );
             
-                    throw new SalesTaxException(msg, HttpResponseCode.HTTP_NOT_FOUND);
+                    throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
                 }
                 
                 //Ensure that there is only one item for each product
@@ -163,7 +163,7 @@ public class OrderServiceImpl implements OrderService{
                     String msg = "Order has two line items from same product "+ productId;
                     LOGGER.log(Level.SEVERE, msg );
             
-                    throw new SalesTaxException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
+                    throw new SalesDemoException(msg, HttpResponseCode.HTTP_VALIDATION_ERROR);
                 }
                 
                 usedProducts.add(product);
@@ -176,11 +176,11 @@ public class OrderServiceImpl implements OrderService{
             //Replace the orders existing list 
             order.setItems( items );
             
-        }catch( SalesTaxDBException e){
+        }catch( SalesDemoDBException e){
             String msg = "Unexpected Database Exception updating order "+ e.getMessage();
             LOGGER.log(Level.INFO, msg, e);
             
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
         return order;
     }
@@ -189,10 +189,10 @@ public class OrderServiceImpl implements OrderService{
      * The following method will return a list of all 
      * the orders in the database
      * @return
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */
-    @Transactional(rollbackFor = SalesTaxException.class)
-    public List<JSONOrder> getOrders() throws SalesTaxException {
+    @Transactional(rollbackFor = SalesDemoException.class)
+    public List<JSONOrder> getOrders() throws SalesDemoException {
         LOGGER.log(Level.INFO,"Getting a list of orders " );
         try{
             List<Order> orders = orderDao.getTypes();
@@ -203,10 +203,10 @@ public class OrderServiceImpl implements OrderService{
                 jsonResult.add( jsonOrder );
             }
             return jsonResult;
-        }catch( SalesTaxDBException e){
+        }catch( SalesDemoDBException e){
             String msg = "Unexpected exception getting orders ";
             LOGGER.log(Level.SEVERE,msg ,e);
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
 
@@ -214,11 +214,11 @@ public class OrderServiceImpl implements OrderService{
      * The following method will return a reference to the order. 
      * @param orderId
      * @return
-     * @throws SalesTaxException 
+     * @throws SalesDemoException 
      */
     
-    @Transactional(rollbackFor = SalesTaxException.class)
-    public JSONOrder getOrder(long orderId) throws SalesTaxException {
+    @Transactional(rollbackFor = SalesDemoException.class)
+    public JSONOrder getOrder(long orderId) throws SalesDemoException {
         LOGGER.log(Level.INFO,"Getting order for order id ->" + orderId);
         try{
             Order order = orderDao.findById( orderId );
@@ -227,14 +227,14 @@ public class OrderServiceImpl implements OrderService{
                 String msg = "Order with Id Not found.  ID ->" + orderId;
                 LOGGER.log(Level.INFO,msg);
                 //Throw exception and set HTTP Response to NOT Found
-                throw new SalesTaxException(msg, HttpResponseCode.HTTP_NOT_FOUND);
+                throw new SalesDemoException(msg, HttpResponseCode.HTTP_NOT_FOUND);
             }
             JSONOrder jsonResult=  new JSONOrder(order);
             return jsonResult;
-        }catch( SalesTaxDBException e){
+        }catch( SalesDemoDBException e){
             String msg = "Unexpected exception getting order -> "+ orderId;
             LOGGER.log(Level.SEVERE,msg ,e);
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
 

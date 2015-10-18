@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.sdl.salesdemo.common.SalesTaxDBException;
-import org.sdl.salesdemo.common.SalesTaxException;
+import org.sdl.salesdemo.common.SalesDemoDBException;
+import org.sdl.salesdemo.common.SalesDemoException;
 import org.sdl.salesdemo.common.SalesTaxConstants.*;
 import org.sdl.salesdemo.dao.AbstractDao;
 import org.sdl.salesdemo.domain.Product;
@@ -36,11 +36,11 @@ public class ProductServiceImpl implements ProductService{
      * The following method will call the product dao to query the 
      * database to return a list of products
      * @return List<Product>
-     * @exception SalesTaxException
+     * @exception SalesDemoException
      */
     @Cacheable(value="products")
     @Transactional
-    public List<JSONProduct> getProducts() throws SalesTaxException{
+    public List<JSONProduct> getProducts() throws SalesDemoException{
         //TODO Implement Caching on this method
         LOGGER.log(Level.INFO , "Getting products");
         try{
@@ -52,10 +52,10 @@ public class ProductServiceImpl implements ProductService{
                 jsonResult.add( jsonProduct );
             }
             return jsonResult;
-        }catch(SalesTaxDBException e){
+        }catch(SalesDemoDBException e){
             String msg = "There was an unexpected exception while return a list of products ->" + e.getMessage();
             LOGGER.log(Level.SEVERE,msg ,e);
-            throw new SalesTaxException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
+            throw new SalesDemoException(msg, HttpResponseCode.HTTP_UNEXPECTED_ERROR);
         }
     }
 

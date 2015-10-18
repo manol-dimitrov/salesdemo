@@ -5,13 +5,13 @@ package org.sdl.salesdemo.common;
  * 
  * @author shannonlal
  */
-public class SalesTaxDBException extends Exception{
+public class SalesDemoDBException extends Exception{
     
     /**
      * 
      * @param message 
      */
-    public SalesTaxDBException(String message){
+    public SalesDemoDBException(String message){
         super( message);
     }
 

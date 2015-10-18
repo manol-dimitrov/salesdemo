@@ -8,7 +8,7 @@ import org.sdl.salesdemo.common.SalesTaxConstants.*;
  * the http response which will be set on the Http Response to the client
  * @author shannonlal
  */
-public class SalesTaxException extends Exception{
+public class SalesDemoException extends Exception{
 
     private String clientMessage;
     private HttpResponseCode httpResponseCode;
@@ -18,7 +18,7 @@ public class SalesTaxException extends Exception{
      * @param message
      * @param code 
      */
-    public SalesTaxException( String message, HttpResponseCode code ){
+    public SalesDemoException( String message, HttpResponseCode code ){
         clientMessage = message;
         httpResponseCode = code;
     }
