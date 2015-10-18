@@ -3,6 +3,7 @@ package org.sdl.salesdemo.controllers;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +14,6 @@ import org.sdl.salesdemo.services.OrderService;
 import org.sdl.salesdemo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The following is the order controller for the Sales Tax application.  This
@@ -30,9 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
  * REST requests
  * @author shannonlal
  */
+@RequestMapping(value = {"/api/sales"})
 @Controller
-public class OrderController {
-    public static final Logger LOGGER = Logger.getLogger(OrderController.class.getName());
+public class APIController {
+    public static final Logger LOGGER = Logger.getLogger(APIController.class.getName());
 
     @Autowired
     private ProductService productService;
@@ -40,60 +40,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    /**
-     * The following method will return a reference to the main index
-     * page
-     * @return 
-     */
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public ModelAndView defaultPage() {
-        LOGGER.info("Load the default page");
-        ModelAndView model = new ModelAndView();
-        model.setViewName("index");
-        return model;
 
-    }
-    
-     /**
-     * The following method will return a reference to the update order
-     * JSP Page
-     * @return 
-     */
-    @RequestMapping(value = {"/viewOrder"}, method = RequestMethod.GET)
-    public ModelAndView loadViewOrder() {
-        LOGGER.info("Load the update order page");
-        ModelAndView model = new ModelAndView();
-        model.setViewName("updateOrder");
-        return model;
-
-    }
-
-     /**
-     * The following method will return a reference to the view products
-     * JSP Page
-     * @return 
-     */
-    @RequestMapping(value = {"/viewProducts"}, method = RequestMethod.GET)
-    public ModelAndView loadViewProducts() {
-        LOGGER.info("Load the view products page");
-        ModelAndView model = new ModelAndView();
-        model.setViewName("products");
-        return model;
-
-    }
-    
-         /**
-     * The following method will return a reference to the orders
-     * JSP Page
-     * @return 
-     */
-    @RequestMapping(value = {"/viewOrders"}, method = RequestMethod.GET)
-    public ModelAndView loadViewOrders() {
-        LOGGER.info("Load the view orders page");
-        ModelAndView model = new ModelAndView();
-        model.setViewName("orders");
-        return model;
-    }
     
     /**
      * The following method will handle the REST requests to get a list of the 
@@ -102,7 +49,7 @@ public class OrderController {
      * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
-    @RequestMapping(value = {"/rest/products"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/product/list"}, method = RequestMethod.GET)
     public @ResponseBody List<JSONProduct> getProducts() throws SalesDemoException{
         LOGGER.info("Start get products");
         List<JSONProduct> jsonResult = productService.getProducts();
@@ -117,7 +64,7 @@ public class OrderController {
      * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
-    @RequestMapping(value = {"/rest/orders"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/order/list"}, method = RequestMethod.GET)
     public @ResponseBody List<JSONOrder> getOrders() throws SalesDemoException{
         LOGGER.info("Start get products");
         List<JSONOrder> jsonResult = orderService.getOrders();
@@ -131,7 +78,7 @@ public class OrderController {
      * @exception SalesDemoException
      */
     @ResponseStatus( HttpStatus.OK)
-    @RequestMapping(value = {"/rest/orders/{orderId}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/order/{orderId}"}, method = RequestMethod.GET)
     public @ResponseBody JSONOrder getOrder(@PathVariable("orderId") Long orderId) throws SalesDemoException{
         LOGGER.info("Start get order ->"+ orderId);
         JSONOrder jsonResult = orderService.getOrder(orderId);
@@ -147,7 +94,7 @@ public class OrderController {
      * @return JSONOrder
      * @throws SalesDemoException 
      */    
-    @RequestMapping(value = "/rest/orders/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/order/update", method = RequestMethod.POST)
     public @ResponseBody JSONOrder updateOrder( @RequestBody JSONOrder jsonOrder ) throws SalesDemoException{
         LOGGER.info("Start update order ");
         JSONOrder jsonResult = orderService.updateOrder(jsonOrder);

@@ -51,6 +51,12 @@
 		<version>${log4j.version}</version>
 	</dependency>
 	
+    <dependency>
+       	<groupId>commons-logging</groupId>
+       	<artifactId>commons-logging</artifactId>
+       	<version>${commons-logging-version}</version>
+	</dependency>
+	
 	<!-- database pool -->
     <dependency>
         <groupId>commons-dbcp</groupId>
@@ -165,12 +171,7 @@
             <version>${dbunit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-        	<groupId>commons-logging</groupId>
-        	<artifactId>commons-logging</artifactId>
-        	<version>${commons-logging-version}</version>
-        	<scope>test</scope>
-		</dependency>
+
 		<dependency>
         	<groupId>org.slf4j</groupId>
         	<artifactId>slf4j-log4j12</artifactId>
