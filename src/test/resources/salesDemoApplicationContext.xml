@@ -17,9 +17,9 @@
 
     <mvc:annotation-driven/>	
     <!--<context:component-scan base-package="org.sdl.salestax.domain" />-->
-    <context:component-scan base-package="org.sdl.salestax.dao.hibernate" />
-    <context:component-scan base-package="org.sdl.salestax.services" />
-    <context:component-scan base-package="org.sdl.salestax.services.impl" />
+    <context:component-scan base-package="org.sdl.salesdemo.dao.hibernate" />
+    <context:component-scan base-package="org.sdl.salesdemo.services" />
+    <context:component-scan base-package="org.sdl.salesdemo.services.impl" />
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="arDataSource"/>
         <property name="mappingResources">
@@ -54,5 +54,14 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
+    <!-- <bean id="orderDao" class="org.sdl.salesdemo.dao.hibernate.GenericHibernateDao" scope="prototype">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="productDao" class="org.sdl.salesdemo.dao.hibernate.GenericHibernateDao" scope="prototype">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>  -->
+    
     
 </beans>

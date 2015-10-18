@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
- <class name="org.sdl.salestax.domain.Item" table="ITEM">
+ <class name="org.sdl.salesdemo.domain.Item" table="ITEM">
     <id name="id" type="long">
         <column name="ID" not-null="true"/>
      <generator class="native" />
@@ -19,7 +19,7 @@
        <column name="TAXES" not-null="true"/>
    </property>
    
-   <many-to-one name="product" column="PRODUCT_ID" class="org.sdl.salestax.domain.Product" />
+   <many-to-one name="product" column="PRODUCT_ID" class="org.sdl.salesdemo.domain.Product" />
 
  </class>
 </hibernate-mapping>

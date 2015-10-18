@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
- <class name="org.sdl.salestax.domain.Order" table="ORDERS">
+ <class name="org.sdl.salesdemo.domain.Order" table="ORDERS">
     <id name="id" type="long">
         <column name="ID" not-null="true"/>
      <generator class="native" />
@@ -19,7 +19,7 @@
    <list name="items" table="ORDER_ITEMS" cascade="all">
         <key column="ORDER_ID"/>
         <index column="SEQUENCE_ID" />
-        <many-to-many column="ITEM_ID" class="org.sdl.salestax.domain.Item"/>
+        <many-to-many column="ITEM_ID" class="org.sdl.salesdemo.domain.Item"/>
    </list> 
  </class>
 </hibernate-mapping>
