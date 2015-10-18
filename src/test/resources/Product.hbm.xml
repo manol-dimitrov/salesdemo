@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+ <class name="org.sdl.salestax.domain.Product" table="PRODUCT">
+    <id name="id" type="long">
+        <column name="ID" not-null="true"/>
+     <generator class="native" />
+   </id>
+   <property name="name" type="string" >
+       <column name="PRODUCT_NAME" not-null="true"/>
+   </property>
+   <property name="price" type="big_decimal" >
+       <column name="PRICE" not-null="true"/>
+   </property>
+   
+   <property name="salesTaxExempt" type="boolean" >
+       <column name="SALES_TAX_EXEMPT" not-null="true"/>
+   </property>
+   
+   <property name="importDutiesExempt" type="boolean" >
+       <column name="IMPORT_DUTIES" not-null="true"/>
+   </property>
+
+ </class>
+</hibernate-mapping>

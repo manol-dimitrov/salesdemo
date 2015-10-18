@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+<product product_name="Chocolat Bar" price="0.85" sales_tax_exempt="0" import_duties="1" />
+<product product_name="CD" price="14.99" sales_tax_exempt="0" import_duties="1" />
+<product product_name="Imported " price="0.85" sales_tax_exempt="0" import_duties="1" />
+</dataset>
+
