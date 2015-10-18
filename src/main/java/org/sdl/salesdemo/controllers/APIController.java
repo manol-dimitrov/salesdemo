@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * REST requests
  * @author shannonlal
  */
-@RequestMapping(value = {"/api/sales"})
+@RequestMapping(value = {"/api"})
 @Controller
 public class APIController {
     public static final Logger LOGGER = Logger.getLogger(APIController.class.getName());
