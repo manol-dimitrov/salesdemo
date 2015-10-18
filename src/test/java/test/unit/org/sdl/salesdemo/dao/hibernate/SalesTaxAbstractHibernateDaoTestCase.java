@@ -8,10 +8,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import org.apache.derby.tools.ij;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConnection;
@@ -22,6 +23,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author shannonlal
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/userManagementApplicationContext.xml" })
+@ContextConfiguration(locations = { "/salesDemoApplicationContext.xml" })
 @Transactional
 public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestCase {
 	public static final Logger LOGGER = Logger.getLogger(SalesTaxAbstractHibernateDaoTestCase.class.getName());
@@ -56,6 +58,11 @@ public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestC
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");
 	}
+	
+	@BeforeClass
+	public static void init() {
+	   PropertyConfigurator.configure("src//test//resources//log4j.properties");
+	}
 
 	@Override
 	@Before
@@ -74,12 +81,12 @@ public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestC
 			DatabaseOperation.CLEAN_INSERT.execute(conn, dataSet); // Import
 																	// your data
 		} catch (Exception e) {
-			LOGGER.log(Level.INFO, "Unexpected Error ", e);
+			LOGGER.info("Unexpected Error ", e);
 		} finally {
 			try {
 				conn.close();
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Unexpected Error ", e);
+				LOGGER.info( "Unexpected Error ", e);
 			}
 		}
 
@@ -125,12 +132,12 @@ public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestC
 			connection = DriverManager.getConnection(DB_URL);
 			connection.setAutoCommit(true);
 		} catch (Exception e) {
-			LOGGER.log(Level.INFO, "Unexpected Error ", e);
+			LOGGER.info( "Unexpected Error ", e);
 		} finally {
 			try {
 				connection.close();
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Unexpected Error ", e);
+				LOGGER.info("Unexpected Error ", e);
 			}
 		}
 	}
@@ -154,11 +161,11 @@ public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestC
 				ResultSet rs = stmt.executeQuery("select * from ORDER");
 
 				if ((rs != null) && (rs.next())) {
-					LOGGER.log(Level.SEVERE, "Database already exists");
+					LOGGER.error( "Database already exists");
 					dbExist = true;
 				}
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Database does not exist");
+				LOGGER.error( "Database does not exist");
 			}
 
 			if (!dbExist) {
@@ -167,19 +174,19 @@ public abstract class SalesTaxAbstractHibernateDaoTestCase extends DatabaseTestC
 					FileInputStream file = new FileInputStream(DB_CREATE_SCRIPT);
 					ij.runScript(connection, file, "UTF-8", System.out, "UTF-8");
 				} catch (FileNotFoundException e) {
-					LOGGER.log(Level.SEVERE, "Error creating the ->" + e.getMessage());
+					LOGGER.error( "Error creating the ->" + e.getMessage());
 				} catch (UnsupportedEncodingException e) {
-					LOGGER.log(Level.SEVERE, "Error creating the ->" + e.getMessage());
+					LOGGER.error( "Error creating the ->" + e.getMessage());
 				}
 			}
 
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "Unexpected Error ", e);
+			LOGGER.error( "Unexpected Error ", e);
 		} finally {
 			try {
 				connection.close();
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Unexpected Error ", e);
+				LOGGER.error( "Unexpected Error ", e);
 			}
 		}
 	}

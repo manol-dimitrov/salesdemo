@@ -2,9 +2,9 @@ package test.unit.org.sdl.salesdemo.dao.hibernate;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.sdl.salesdemo.domain.Product;
+import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sdl.salesdemo.common.SalesDemoDBException;
@@ -34,6 +34,7 @@ public class OrderHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTestC
     public OrderHibernateDaoTestCase() {
         super();
     }
+    
 
     @Test
     public void shouldCreateAnOrderWithOneItem() {
@@ -65,7 +66,7 @@ public class OrderHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTestC
             assertEquals(o.getTotal(), order.getTotal());
 
         } catch (SalesDemoDBException e) {
-            LOGGER.log(Level.SEVERE, "Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage());
         }
     }
@@ -97,7 +98,7 @@ public class OrderHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTestC
             assertEquals(o.getTotal(), order.getTotal());
 
         } catch (SalesDemoDBException e) {
-            LOGGER.log(Level.SEVERE, "Unexpected Error", e);
+            LOGGER.fatal( "Unexpected Error", e);
             fail("Exception Caught" + e.getMessage());
         }
     }
@@ -132,7 +133,7 @@ public class OrderHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTestC
             assertEquals(o.getTotal(), order.getTotal());
 
         } catch (SalesDemoDBException e) {
-            LOGGER.log(Level.SEVERE, "Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage());
         }
     }
@@ -178,7 +179,7 @@ public class OrderHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTestC
             assertEquals(o.getTotal(), order.getTotal());
 
         } catch (SalesDemoDBException e) {
-            LOGGER.log(Level.SEVERE, "Unexpected Error", e);
+            LOGGER.error("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage());
         }
     }

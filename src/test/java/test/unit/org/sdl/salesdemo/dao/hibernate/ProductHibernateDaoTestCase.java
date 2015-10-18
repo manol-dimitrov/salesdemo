@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.sdl.salesdemo.domain.Product;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sdl.salesdemo.common.SalesDemoDBException;
@@ -56,7 +55,7 @@ public class ProductHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTes
             assertTrue( product.isImportDutiesExempt());
 
         }catch(Exception e){
-            LOGGER.log(Level.SEVERE,"Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage() );
         }
     }	
@@ -78,7 +77,7 @@ public class ProductHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTes
 
 
         }catch(SalesDemoDBException e){
-            LOGGER.log(Level.SEVERE,"Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage() );
         }
     }
@@ -106,7 +105,7 @@ public class ProductHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTes
 
 
         }catch(SalesDemoDBException e){
-            LOGGER.log(Level.SEVERE,"Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage() );
         }
     }
@@ -138,7 +137,7 @@ public class ProductHibernateDaoTestCase extends SalesTaxAbstractHibernateDaoTes
 
 
         }catch(SalesDemoDBException e){
-            LOGGER.log(Level.SEVERE,"Unexpected Error", e);
+            LOGGER.fatal("Unexpected Error", e);
             fail("Exception Caught" + e.getMessage() );
         }
     }
