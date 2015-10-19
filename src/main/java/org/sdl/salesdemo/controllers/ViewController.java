@@ -37,11 +37,11 @@ public class ViewController {
      * JSP Page
      * @return 
      */
-    @RequestMapping(value = {"/viewOrder"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/vieworder"}, method = RequestMethod.GET)
     public ModelAndView loadViewOrder() {
         LOGGER.info("Load the update order page");
         ModelAndView model = new ModelAndView();
-        model.setViewName("updateOrder");
+        model.setViewName("updateorder");
         return model;
 
     }
@@ -51,7 +51,7 @@ public class ViewController {
      * JSP Page
      * @return 
      */
-    @RequestMapping(value = {"/viewProducts"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/viewproducts"}, method = RequestMethod.GET)
     public ModelAndView loadViewProducts() {
         LOGGER.info("Load the view products page");
         ModelAndView model = new ModelAndView();
@@ -65,7 +65,7 @@ public class ViewController {
      * JSP Page
      * @return 
      */
-    @RequestMapping(value = {"/viewOrders"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/vieworders"}, method = RequestMethod.GET)
     public ModelAndView loadViewOrders() {
         LOGGER.info("Load the view orders page");
         ModelAndView model = new ModelAndView();
