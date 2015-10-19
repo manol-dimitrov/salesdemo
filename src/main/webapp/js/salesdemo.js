@@ -318,7 +318,7 @@ orderService.factory( 'OrderService',['$log','$http','$q',
             updateOrder : function( order){
                 var def = $q.defer();
 
-                var url = salesDemoConfig.getUpdateOrderAPIURL();
+                var url = salesDemoConfig.updateOrderAPIURL();
                 $http.post(url, order).
                     success(function(data, status, headers, config) {
                         //Ensure that the status code is ok and data success
@@ -545,12 +545,12 @@ SalesDemo.SalesDemoConfig = (function() {
             return 'api/order/list';
         };
 
-        this.getOrderAPIURL = function(){
-            return 'api/order/{orderId}';
+        this.getOrderAPIURL = function(orderId){
+            return 'api/order/'+orderId;
         };
 
-        this.getUpdateOrderAPIURL = function(orderId){
-            return 'api/order/'+ orderId;
+        this.updateOrderAPIURL = function(){
+            return 'api/order/update';
         };
 
         this.getOrdersViewURL = function(){
