@@ -21,7 +21,7 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
     }).when( '/orders',{
         templateUrl: salesDemoConfig.getOrdersViewURL(),
         controller: 'OrdersController'
-    }).when('/viewOrder/:orderId', {
+    }).when('/order/:orderId', {
         templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
         controller: 'UpdateOrderController'
     })
@@ -218,7 +218,7 @@ orderController.controller('OrdersController', ['$scope',  '$location', '$log','
              * @returns {undefined}
              */
             $scope.newOrder = function(){
-                $location.path('/viewOrder');
+                $location.path('/order');
             };
             
              /**
