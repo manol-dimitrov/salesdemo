@@ -13,7 +13,7 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
 
     var salesDemoConfig = SalesDemo.SalesDemoConfig.getInstance();
     $routeProvider.when('/order', {
-        templateUrl: '/view/viewOrder',
+        templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
         controller: 'UpdateOrderController'
     }).when( '/products',{
         templateUrl: salesDemoConfig.getProductsViewURL(),
@@ -26,7 +26,7 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
         controller: 'UpdateOrderController'
     })
     .otherwise({
-        redirectTo: '/products'
+        redirectTo: '/orders'
     });
 }]);
 

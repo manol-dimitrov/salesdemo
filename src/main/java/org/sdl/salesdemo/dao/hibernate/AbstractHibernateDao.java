@@ -26,7 +26,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements Ab
     private Class<T> entityClass;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
 
     /**
