@@ -112,14 +112,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
     
-    @Bean
-    public SalesTaxDatabaseConfig createDBConfig(){
-        SalesTaxDatabaseConfig initService;
-        initService = new SalesTaxDatabaseConfig( dataSource(), sessionFactory());
-        
-        return initService;
-        
-    }
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
