@@ -25,6 +25,7 @@
       <derby-tools>10.10.1.1</derby-tools>
       <commons-logging-version>1.1.1</commons-logging-version>
       <org-slf4j-version>1.7.5</org-slf4j-version>
+      <postgres.jdbc.version>9.2-1002-jdbc4</postgres.jdbc.version>
   </properties>
 
   <dependencies>
@@ -118,11 +119,19 @@
             <version>${spring.version}</version>
         </dependency>
         
+        <!-- Postgres DB Driver -->
+        <dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.jdbc.version}</version>
+		</dependency>
+        
 		<!-- Derby in memory DB -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.8.2.2</version>
+            <scope>test</scope>
         </dependency> 
         
         <dependency>

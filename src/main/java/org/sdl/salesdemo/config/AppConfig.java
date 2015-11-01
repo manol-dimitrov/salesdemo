@@ -53,6 +53,11 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         return builder.buildSessionFactory();
     }
 
+    @Bean
+    public String getShannonProperty(){
+    	String shannon = env.getProperty("Shannon");
+    	return shannon;
+    }
     /**
      * The following method will load the hibernate properties
      * 
@@ -63,7 +68,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         Properties prop = new Properties();
         prop.put("hibernate.show_sql", "true");
         prop.put("hbm2ddl.auto", "true");
-        prop.put("hibernate.dialect", "org.hibernate.dialect.DerbyDialect");
+        prop.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return prop;
     }
 
@@ -77,11 +82,15 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public BasicDataSource dataSource() {
 
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName("org.apache.derby.jdbc.EmbeddedDriver");
+        ds.setDriverClassName("org.postgresql.Driver");
         
-        ds.setUrl( env.getProperty("db.url"));
-        ds.setUsername(env.getProperty("db.user"));
-        ds.setPassword(env.getProperty("db.password"));
+        String dbURL = env.getProperty("DB-URL");
+        String dbUser = env.getProperty("DB-User");
+        String dbPassword = env.getProperty("DB-Password"); 
+        
+        ds.setUrl( dbURL);
+        ds.setUsername( dbUser);
+        ds.setPassword( dbPassword );
 
         return ds;
     }
