@@ -1,0 +1,5 @@
+--Local
+-DDB-URL="jdbc:postgresql://localhost:5432/salesdemo" -DDB-User="salesdemo" -DDB-Password="sales123"
+
+--Amazon RDS intance
+-DDB-URL="jdbc:postgresql://salesdemo.c36khawjgii3.us-west-2.rds.amazonaws.com:5432/salesdemo" -DDB-User="salesdemo" -DDB-Password="sales123"

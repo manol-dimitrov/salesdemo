@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:oxm="http://www.springframework.org/schema/oxm"
+		xmlns:util="http://www.springframework.org/schema/util"
+                xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+							http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/oxm
+							http://www.springframework.org/schema/oxm/spring-oxm.xsd
+							http://www.springframework.org/schema/util
+  							http://www.springframework.org/schema/util/spring-util.xsd
+                                                        http://www.springframework.org/schema/tx
+                                                        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <mvc:annotation-driven/>	
+    <!--<context:component-scan base-package="org.sdl.salestax.domain" />-->
+    <context:component-scan base-package="org.sdl.salesdemo.dao.hibernate" />
+    <context:component-scan base-package="org.sdl.salesdemo.services" />
+    <context:component-scan base-package="org.sdl.salesdemo.services.impl" />
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="arDataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>Product.hbm.xml</value>
+                <value>Item.hbm.xml</value>
+                <value>Order.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hbm2ddl.auto">create-drop</prop>
+
+            </props>
+
+        </property>
+    </bean>
+
+    <bean id="arDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">        
+        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+        <property name="username" value="" />  
+        <property name="password" value=""/>  
+        <property name="url" value="jdbc:derby:memory:testDB;create=true"/>
+                                    
+    </bean> 
+
+   
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- <bean id="orderDao" class="org.sdl.salesdemo.dao.hibernate.GenericHibernateDao" scope="prototype">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="productDao" class="org.sdl.salesdemo.dao.hibernate.GenericHibernateDao" scope="prototype">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>  -->
+    
+    
+</beans>
