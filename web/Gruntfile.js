@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             },
             prodhtml:{
                 src: 'app/html/index.html',
-                dest:'build/prod/index.jsp'
+                dest:'build/prod/index.html'
             },
             orderdevhtml:{
                 src: 'app/html/views/orders.html',
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
             },
             orderprodhtml:{
                 src: 'app/html/views/orders.html',
-                dest:'build/prod/orders.jsp'
+                dest:'build/prod/views/orders.html'
             },
 
             productsdevhtml:{
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
             },
             productsprodhtml:{
                 src: 'app/html/views/products.html',
-                dest:'build/prod/products.jsp'
+                dest:'build/prod/views/products.html'
             },
 
             updateorderdevhtml:{
@@ -53,7 +53,17 @@ module.exports = function(grunt) {
             },
             updateorderprodhtml:{
                 src: 'app/html/views/updateorder.html',
-                dest:'build/prod/updateorder.jsp'
+                dest:'build/prod/views/updateorder.html'
+            },
+            imagesdev :{
+                files: [
+                    {expand:true, cwd: 'app/html/',flatten: false,src:['images/**'], dest:'build/dev/'}
+                ]
+            },
+            imagesprod :{
+                files: [
+                    {expand:true, cwd: 'app/html/',flatten: false,src:['images/**'], dest:'build/prod/'}
+                ]
             },
 
             devcss:{

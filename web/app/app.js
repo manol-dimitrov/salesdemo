@@ -2,10 +2,10 @@
 
 // Declare app level module which depends on views, and components
 var salesTaxApp = angular.module('salesdemo', [
-  'ngRoute',
-  'orderController',
-  'productService',
-  'orderService'
+    'ngRoute',
+    'orderController',
+    'productService',
+    'orderService'
 
 ]);
 
@@ -13,7 +13,7 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
 
     var salesDemoConfig = SalesDemo.SalesDemoConfig.getInstance();
     $routeProvider.when('/order', {
-        templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
+        templateUrl: 'views/updateorder.html',
         controller: 'UpdateOrderController'
     }).when( '/products',{
         templateUrl: salesDemoConfig.getProductsViewURL(),
@@ -25,9 +25,9 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
         controller: 'UpdateOrderController'
     })
-    .otherwise({
-        redirectTo: '/orders'
-    });
+        .otherwise({
+            redirectTo: '/orders'
+        });
 }]);
 
 
