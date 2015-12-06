@@ -1,9 +1,9 @@
-<div class="container" id="produtSection" style="display:table-cell; vertical-align:middle;">
+
+<div class="container" id="produtSection">
 
     <div class="row">
-        <div class="visible-xs col-xs-6"></div>
-        <div class="col-xs-12 col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-1 col-lg-12 col-lg-offset-1">
-            <table id="productsTable" class="table table-striped col-md-4 center-block">
+        <div class="col-xs-12">
+            <table id="productsTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th class="col-xs-2  col-sm-2 col-md-2 col-lg-2">Id</th>
@@ -25,10 +25,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="visible-xs col-xs-6"></div>
-        <div class="col-xs-4  col-sm-3  col-md-3  col-lg-3" ></div>
-        <div class="col-xs-4  col-sm-2  col-md-2  col-lg-2" >
-            <button class="btn btn-primary " id="newOrderButton" ng-click="newOrder()">New Order</button>
+
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary" id="newOrderButton" ng-click="newOrder()">New Order</button>
         </div>
         <div class="col-xs-4  col-sm-7  col-md-7  col-lg-7" ></div>
     </div>   
