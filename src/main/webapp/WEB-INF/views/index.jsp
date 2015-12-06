@@ -12,14 +12,19 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
-
 </head>
 <body>
 
   <!-- Main header definition -->
-  <div class="masterheader"></div>
-    <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+  <div class="masterheader">
+      <div class="row">
+          <div class="col-xs-12 text-center" style="margin-top: 80px;">
+              <img src="images/webservice.png">
+          </div>
+      </div>
+  </div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-salesTax-navbar-collapse-1">
@@ -37,9 +42,9 @@
           <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown">History<b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#/viewOrders" >Orders</a></li>
-              <li><a href="#/viewOrder?new" >New Order</a></li>
-              <li><a href="#/viewProducts" >Products</a></li>
+              <li><a href="#/orders" >Orders</a></li>
+              <li><a href="#/order" >New Order</a></li>
+              <li><a href="#/products" >Products</a></li>
             </ul>
           </li>
         </ul>
@@ -54,7 +59,7 @@
   <div id="footer" class="container text-center">
     <nav class="navbar navbar-default navbar-fixed-bottom">
       <div class="navbar-inner navbar-content-center">
-        <p class="text-muted credit">Sales Tax</p>
+        <p class="credit">Sales Tax</p>
       </div>
     </nav>
   </div>
@@ -69,4 +74,3 @@
   <script src="js/salesdemo.js"></script>
 </body>
 </html>
-

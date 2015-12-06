@@ -2,10 +2,10 @@
 
 // Declare app level module which depends on views, and components
 var salesTaxApp = angular.module('salesdemo', [
-  'ngRoute',
-  'orderController',
-  'productService',
-  'orderService'
+    'ngRoute',
+    'orderController',
+    'productService',
+    'orderService'
 
 ]);
 
@@ -13,7 +13,7 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
 
     var salesDemoConfig = SalesDemo.SalesDemoConfig.getInstance();
     $routeProvider.when('/order', {
-        templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
+        templateUrl: 'vieworder',
         controller: 'UpdateOrderController'
     }).when( '/products',{
         templateUrl: salesDemoConfig.getProductsViewURL(),
@@ -25,9 +25,9 @@ salesTaxApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: salesDemoConfig.getUpdateOrderViewURL(),
         controller: 'UpdateOrderController'
     })
-    .otherwise({
-        redirectTo: '/orders'
-    });
+        .otherwise({
+            redirectTo: '/orders'
+        });
 }]);
 
 
@@ -515,9 +515,6 @@ productService.factory( 'ProductService',['$log','$http','$q',
 /**
  * Created by shannonlal on 15-10-18.
  */
-/**
- * Created by shannonlal on 15-10-18.
- */
 
 var SalesDemo = SalesDemo || {REVISION: '1.0.0'};
 
@@ -533,6 +530,7 @@ var SalesDemo = SalesDemo || {REVISION: '1.0.0'};
 SalesDemo.SalesDemoConfig = (function() {
 
     function SalesDemoConfig(){
+
         this.getProductsAPIURL = function(){
             return 'api/product/list';
         };
@@ -544,7 +542,7 @@ SalesDemo.SalesDemoConfig = (function() {
         this.getOrdersAPIURL = function(){
             return 'api/order/list';
         };
-
+        
         this.getOrderAPIURL = function(orderId){
             return 'api/order/'+orderId;
         };
@@ -560,6 +558,7 @@ SalesDemo.SalesDemoConfig = (function() {
         this.getUpdateOrderViewURL = function(){
             return 'vieworder';
         };
+
 
     };
 
